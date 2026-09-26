@@ -11,6 +11,7 @@ const path = require("path");
 const userRoute = require("./routes/userRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const propertyRoute = require("./routes/propertyRoute");
+const rentalReqRoute = require("./routes/rentalReqRoute");
 
 const app = express();
 connectDB();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/users", userRoute);
 app.use("/categories", categoryRoute);
 app.use("/properties", propertyRoute);
+app.use("/rental-requests", rentalReqRoute);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
