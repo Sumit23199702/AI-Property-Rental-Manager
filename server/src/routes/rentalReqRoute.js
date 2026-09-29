@@ -36,7 +36,7 @@ router.get(
   getReqForMyProperties,
 );
 
-router.patch(
+router.put(
   "/approve/:id",
   authentication,
   authorization("owner"),

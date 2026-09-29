@@ -135,7 +135,7 @@ const getReqForMyProperties = async (req, res) => {
       ownerId: req.userId,
     })
       .populate("propertyId")
-      .populate("user", "-password")
+      .populate("userId", "-password")
       .sort({ createdAt: -1 });
 
     if (rentalRequests.length === 0) {
@@ -178,7 +178,7 @@ const approveRequest = async (req, res) => {
     }
 
     rentalReq.status = "approved";
-    await RentalRequestModel.save();
+    await rentalReq.save();
 
     await PropertyModel.findByIdAndUpdate(rentalReq.propertyId, {
       status: "rented",
@@ -187,11 +187,10 @@ const approveRequest = async (req, res) => {
     await RentalRequestModel.updateMany(
       {
         propertyId: rentalReq.propertyId,
-      },
-      {
         _id: { $ne: rentalReq._id },
         status: "pending",
       },
+
       { status: "rejected" },
     );
 
@@ -230,7 +229,7 @@ const rejectRequest = async (req, res) => {
     }
 
     rentalReq.status = "rejected";
-    await RentalRequestModel.save();
+    await rentalReq.save();
 
     return res.status(200).json({ msg: "Rental Request Rejected", rentalReq });
   } catch (error) {
