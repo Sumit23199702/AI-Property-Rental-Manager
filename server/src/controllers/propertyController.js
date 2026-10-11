@@ -245,7 +245,9 @@ const updateProperty = async (req, res) => {
     }
 
     if (req.files && req.files.length > 0) {
-      propertyData.images = req.files.map((file) => file.filename);
+      const newImages = req.files.map((file) => file.filename);
+
+      propertyData.images = [...(property.images || []), ...newImages];
     }
 
     let updatedPropertyData = await PropertyModel.findByIdAndUpdate(
