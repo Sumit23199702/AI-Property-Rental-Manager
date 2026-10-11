@@ -32,7 +32,7 @@ app.use("/admin", adminRoute);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
-  res.json({ msg: "Hello From Property Rental Manager" });
+  res.json({ msg: "Hello From Property Rental Manager App" });
 });
 
 const PORT = process.env.PORT;
